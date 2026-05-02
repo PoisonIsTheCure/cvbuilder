@@ -13,23 +13,70 @@ java {
 	}
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+	// ── Core ────────────────────────────────────────────────────────────────
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// ── Database ─────────────────────────────────────────────────────────────
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	// ── Security & JWT ───────────────────────────────────────────────────────
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+
+	// ── HTTP Client (OpenRouter / AI requests) ───────────────────────────────
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+	// ── PDF Generation ───────────────────────────────────────────────────────
+	implementation 'com.itextpdf:itext7-core:8.0.3'
+	implementation 'com.itextpdf:html2pdf:5.0.3'
+
+	// ── JSON Parsing ─────────────────────────────────────────────────────────
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+	// ── Boilerplate Reduction ────────────────────────────────────────────────
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// ── DTO Mapping ──────────────────────────────────────────────────────────
+	implementation 'org.mapstruct:mapstruct:1.6.3'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+	// ── Lombok + MapStruct compatibility ─────────────────────────────────────
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+	// ── Dev Tools ────────────────────────────────────────────────────────────
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
-	testImplementation 'org.springframework.boot:spring-boot-starter-thymeleaf-test'
+
+	// ── Testing ──────────────────────────────────────────────────────────────
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// ── MapStruct + Lombok annotation processor order (critical) ─────────────────
+compileJava {
+	options.compilerArgs = [
+		'-Amapstruct.defaultComponentModel=spring',
+		'-Amapstruct.unmappedTargetPolicy=WARN'
+	]
 }
 
 tasks.named('test') {
