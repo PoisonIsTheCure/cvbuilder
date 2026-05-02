@@ -1,6 +1,6 @@
 package com.cv.cvgenerator.entity;
 
-import com.cv.enums.JobApplicationStatus;
+import com.cv.cvgenerator.enums.JobApplicationStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
