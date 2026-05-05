@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <style>
+        /* ── Reset ──────────────────────────────────────────────────────────── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ── Variables injected at runtime ──────────────────────────────────── */
+        :root {
+            --primary:   {{PRIMARY_COLOR}};
+            --secondary: {{SECONDARY_COLOR}};
+            --font:      {{FONT_FAMILY}};
+        }
+
+        /* ── Page ───────────────────────────────────────────────────────────── */
+        body {
+            font-family: var(--font), Arial, sans-serif;
+            font-size: 11px;
+            color: #1a1a1a;
+            line-height: 1.5;
+            padding: 32px 40px;
+        }
+
+        /* ── Header ─────────────────────────────────────────────────────────── */
+        .header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 14px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        .header .title {
+            font-size: 13px;
+            color: #555;
+            margin-top: 2px;
+        }
+        .header .contacts {
+            margin-top: 8px;
+            font-size: 10px;
+            color: #666;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .header .contacts span { display: inline-block; }
+
+        /* ── Section ────────────────────────────────────────────────────────── */
+        .section { margin-bottom: 18px; }
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            border-bottom: 1px solid var(--secondary);
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* ── Summary ────────────────────────────────────────────────────────── */
+        .summary { font-size: 11px; color: #333; }
+
+        /* ── Experience / Education entries ─────────────────────────────────── */
+        .entry { margin-bottom: 12px; }
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .entry-title {
+            font-weight: bold;
+            font-size: 11px;
+            color: #1a1a1a;
+        }
+        .entry-subtitle {
+            font-size: 10px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .entry-date {
+            font-size: 10px;
+            color: #888;
+            white-space: nowrap;
+        }
+        .entry-description {
+            font-size: 10px;
+            color: #444;
+            margin-top: 4px;
+        }
+
+        /* ── Skills ─────────────────────────────────────────────────────────── */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .skill-tag {
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* ── Projects ───────────────────────────────────────────────────────── */
+        .project-tech {
+            font-size: 10px;
+            color: #888;
+            margin-top: 2px;
+            font-style: italic;
+        }
+        .project-link {
+            font-size: 10px;
+            color: var(--primary);
+        }
+
+        /* ── Languages ──────────────────────────────────────────────────────── */
+        .languages-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .language-item { font-size: 10px; }
+        .language-item .lang-name { font-weight: bold; }
+        .language-item .lang-level { color: #888; }
+    </style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────────────────────────── -->
+<div class="header">
+    <h1>{{FULL_NAME}}</h1>
+    {{#if TITLE}}<div class="title">{{TITLE}}</div>{{/if}}
+    <div class="contacts">
+        {{#if PHONE}}<span>📞 {{PHONE}}</span>{{/if}}
+        {{#if LOCATION}}<span>📍 {{LOCATION}}</span>{{/if}}
+        {{#if LINKEDIN}}<span>LinkedIn: {{LINKEDIN}}</span>{{/if}}
+        {{#if GITHUB}}<span>GitHub: {{GITHUB}}</span>{{/if}}
+        {{#if PORTFOLIO}}<span>🌐 {{PORTFOLIO}}</span>{{/if}}
+    </div>
+</div>
+
+<!-- ── DYNAMIC SECTIONS (order controlled by CvLayout.sectionOrder) ────────── -->
+{{SECTIONS}}
+
+</body>
+</html>
