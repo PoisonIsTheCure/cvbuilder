@@ -33,3 +33,12 @@ spring:
 jwt:
   secret: REPLACE_WITH_YOUR_BASE64_ENCODED_SECRET
   expiration-ms: 86400000 # 24 hours
+
+# ── SpringDoc / Swagger ────────────────────────────────────────────────────────
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: alpha
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
