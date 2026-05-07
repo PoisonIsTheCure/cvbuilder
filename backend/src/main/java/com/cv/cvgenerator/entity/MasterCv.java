@@ -3,6 +3,7 @@ package com.cv.cvgenerator.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,43 +28,48 @@ public class MasterCv {
     @OneToOne(mappedBy = "masterCv", cascade = CascadeType.ALL, orphanRemoval = true)
     private Profile profile;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
         name = "master_cv_educations",
         joinColumns = @JoinColumn(name = "master_cv_id"),
         inverseJoinColumns = @JoinColumn(name = "education_id")
     )
-    private List<Education> educations;
+    private List<Education> educations = new ArrayList<>();
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
         name = "master_cv_experiences",
         joinColumns = @JoinColumn(name = "master_cv_id"),
         inverseJoinColumns = @JoinColumn(name = "experience_id")
     )
-    private List<Experience> experiences;
+    private List<Experience> experiences = new ArrayList<>();
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
         name = "master_cv_projects",
         joinColumns = @JoinColumn(name = "master_cv_id"),
         inverseJoinColumns = @JoinColumn(name = "project_id")
     )
-    private List<Project> projects;
+    private List<Project> projects = new ArrayList<>();
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
         name = "master_cv_skills",
         joinColumns = @JoinColumn(name = "master_cv_id"),
         inverseJoinColumns = @JoinColumn(name = "skill_id")
     )
-    private List<Skill> skills;
+    private List<Skill> skills = new ArrayList<>();
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
         name = "master_cv_languages",
         joinColumns = @JoinColumn(name = "master_cv_id"),
         inverseJoinColumns = @JoinColumn(name = "language_id")
     )
-    private List<Language> languages;
+    private List<Language> languages = new ArrayList<>();
 }

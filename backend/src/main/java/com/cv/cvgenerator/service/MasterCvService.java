@@ -25,6 +25,7 @@ public class MasterCvService {
 
     // ── Internal helper (used by other services) ─────────────────────────────
 
+    @Transactional(readOnly = true)
     public MasterCv getMasterCvEntity(Long userId) {
         return masterCvRepository.findByUserIdWithFullDetails(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("MasterCv not found for user: " + userId));

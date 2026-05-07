@@ -69,7 +69,7 @@ public class JwtTokenProvider {
     }
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
+        byte[] keyBytes = Decoders.BASE64URL.decode(jwtSecret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -28,11 +28,8 @@ public class OfferAnalysisService {
     @Transactional
     public OfferAnalysisResponse analyseOffer(Long userId, Long jobApplicationId) {
         // Prevent duplicate analysis — delete existing if re-analysing
-        if (offerAnalysisRepository.existsByJobApplicationId(jobApplicationId)) {
-            offerAnalysisRepository.deleteById(
-                    offerAnalysisRepository.findByJobApplicationId(jobApplicationId).get().getId()
-            );
-        }
+        offerAnalysisRepository.findByJobApplicationId(jobApplicationId)
+                .ifPresent(offerAnalysisRepository::delete);
 
         JobApplication jobApplication = jobApplicationRepository
                 .findByIdAndUserId(jobApplicationId, userId)

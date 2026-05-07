@@ -24,14 +24,12 @@ spring:
         format_sql: true
 
   jackson:
-    serialization:
-      write-dates-as-timestamps: false
     default-property-inclusion: non_null
 
 # ── JWT ────────────────────────────────────────────────────────────────────────
 # Generate secret with: openssl rand -base64 64
 jwt:
-  secret: REPLACE_WITH_YOUR_BASE64_ENCODED_SECRET
+  secret: your_new_very_long_secret_key_that_is_at_least_32_chars
   expiration-ms: 86400000 # 24 hours
 
 # ── SpringDoc / Swagger ────────────────────────────────────────────────────────
